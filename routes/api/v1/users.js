@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
       return;
     }
     
-    const token = user.geterateJWT();
+    const token = user.generateJWT();
     
     res.json({
       success: true,
