@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const config = require('./config/config.js');
 
 const PORT = process.env.PORT || 3000;
+console.log(config.database);
 
 // DB接続
 mongoose.Promise = global.Promise;
