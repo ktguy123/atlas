@@ -1,7 +1,13 @@
 # atlas
 
 ## 1. 概要
+[こちら](https://github.com/ktguy123/node-express-realworld-example-app)をもとに実装中
 
+## 2. 構成
+* `app.js` - アプリケーションのエントリーポイント
+* `config/` - 環境変数を管理
+* `models/` - Mongooseモデルのスキーマ定義
+* `routes/` - apiのルート定義（認証も含む）
 
 ## 2. API
 
