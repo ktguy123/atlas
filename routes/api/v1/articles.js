@@ -1,12 +1,11 @@
-const express = require('express');
+const router = require('express').Router();
 const moment = require('moment');
-const auth = require('./../auth.js');
+const auth = require('./../../auth')
 
-const router = express.Router();
 const ArticleModel = require('../../../models/Article.js');
 
 // 作成 Create
-router.post('/', auth, (req, res) => {
+router.post('/', auth.required, (req, res) => {
   const Article = new ArticleModel();
 
   Article.title = req.body.title;
@@ -24,7 +23,7 @@ router.post('/', auth, (req, res) => {
 });
 
 // 更新 Update
-router.put('/:id', auth, (req, res) => {
+router.put('/:id', auth.required, (req, res) => {
   const Articleid = req.params.id;
   ArticleModel
   .findById(Articleid, (err, article) => {
@@ -48,7 +47,7 @@ router.put('/:id', auth, (req, res) => {
 });
 
 // 全検索
-router.get('/', auth, (req, res) => {
+router.get('/', auth.required, (req, res) => {
   ArticleModel.find()
     .then(articles => {
       res.json(articles);
@@ -56,7 +55,7 @@ router.get('/', auth, (req, res) => {
 });
 
 // ID検索
-router.get('/:id', auth, (req, res) => {
+router.get('/:id', auth.required, (req, res) => {
   const Articleid = req.params.id;
   ArticleModel
     .findById(Articleid, (err, article) => {
@@ -65,7 +64,7 @@ router.get('/:id', auth, (req, res) => {
 });
 
 // 削除 (delete)
-router.delete('/:id', auth, (req,res) => {
+router.delete('/:id', auth.required, (req,res) => {
   const Articleid = req.params.id;
   ArticleModel
     .remove({_id:Articleid})

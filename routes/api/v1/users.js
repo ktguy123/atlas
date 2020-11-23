@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const UserModel = require('../../../models/User.js');
-const auth = require('./../auth.js');
+const UserModel = require('./../../../models/User')
+const auth = require('./../../auth');
 
-// TODO: basic認証によるログイン。OAuth 2.0の実装も考える
 router.post('/login', (req, res) => {
   UserModel.findOne({
     username: req.body.username
@@ -12,7 +11,6 @@ router.post('/login', (req, res) => {
     if (err) {
       throw err;
     }
-    
     if (!user) {
       res.json({
         success: false,
@@ -31,21 +29,19 @@ router.post('/login', (req, res) => {
       return;
     }
     
-    const token = user.generateJWT();
-    
     res.json({
       success: true,
       message: 'Authentication successfully finished.',
       id: user._id,
       username: user.username,
-      token: token
+      token: user.generateJWT()
     });
   });
 });
 
 // TODO: スーパーユーザーのみ可能にする
 // ユーザー新規登録
-router.post('/', auth, (req, res, next) => {
+router.post('/', auth.required, (req, res, next) => {
 
   const user = new UserModel();
 
@@ -58,7 +54,7 @@ router.post('/', auth, (req, res, next) => {
 });
 
 // ユーザーの情報の更新
-router.put('/:id', auth, (req, res, next) => {
+router.put('/:id', auth.required, (req, res, next) => {
   UserModel.findById(req.params.id)
     .then(function (user) {
       if (!user) { return res.sendStatus(401); }
