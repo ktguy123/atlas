@@ -3,6 +3,9 @@
 ## 1. 概要
 [こちら](https://github.com/ktguy123/node-express-realworld-example-app)をもとに実装中
 
+その他参考
+* https://github.com/ktguy123/node-express-realworld-example-app
+
 ## 2. 構成
 * `app.js` - アプリケーションのエントリーポイント
 * `config/` - 環境変数を管理

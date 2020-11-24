@@ -5,6 +5,7 @@ const secret = require('./../config/config').secret;
 
 const UserSchema = new mongoose.Schema({
   username: String,
+  email: String,
   hash: String,
   salt: String
 }, {timestamps: true});
@@ -31,6 +32,7 @@ UserSchema.methods.toAuthJSON = function(){
   return {
     id: this._id,
     username: this.username,
+    email: this.email,
     token: this.generateJWT()
   };
 };
