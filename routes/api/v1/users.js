@@ -5,7 +5,9 @@ const UserModel = require('./../../../models/User')
 const auth = require('./../../auth');
 
 router.post('/login', (req, res, next) => {
-  
+  if(!req.body.username){
+    return res.status(422).json({errors: {username: "can't be blank"}});
+  }
   if(!req.body.password){
     return res.status(422).json({errors: {password: "can't be blank"}});
   }
@@ -43,7 +45,6 @@ router.put('/:id', auth.required, (req, res, next) => {
   .then(function (user) {
     if (!user) { return res.sendStatus(401); }
     
-    // only update fields that were actually passed...
     if (typeof req.body.username !== 'undefined') {
       user.username = req.body.username;
     }

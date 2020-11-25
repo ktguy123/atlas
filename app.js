@@ -5,9 +5,8 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const passport = require('passport')
-const config = require('./config/config')
-
-const PORT = process.env.PORT || 3000;
+const config = require('./config/config');
+const { Server } = require('mongodb');
 
 app.use(cors())
 
@@ -42,4 +41,22 @@ mongoose.connect(
 // ルーティング
 app.use(require('./routes'));
 
-app.listen(PORT);
+// エラーハンドリング
+app.use(function (req, res, next) {
+  const err = new Error('Not Found') // error.message
+  err.status = 404
+  next(err)
+})
+
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500)
+  res.json({
+    'errors': {
+      message: err.message,
+      error: {}
+  }})
+})
+
+const server = app.listen(process.env.PORT || 3000, function () {
+  console.log('Listening on port ' + server.address().port)
+})
