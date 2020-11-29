@@ -6,7 +6,6 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const passport = require('passport')
 const config = require('./config/config');
-const { Server } = require('mongodb');
 
 app.use(cors())
 
