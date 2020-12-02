@@ -7,12 +7,12 @@ const auth = require('./../../auth')
 router.post('/', auth.required, (req, res, next) => {
   
   const todo = new TodoModel();
-  
-  todo.parent = req.body.parent;
-  todo.title = req.body.title;
-  todo.check = req.body.check;
-  todo.complete_time = req.body.complete_time;
-  todo.point = req.body.point;
+
+  todo.userId = req.body.userId
+  todo.title = req.body.title
+  todo.tag = req.body.tag
+  todo.todo = req.body.todo
+  todo.score = req.body.score
   
   todo.save().then(function () {
     return res.json(todo.toTodo());

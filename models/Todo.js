@@ -4,21 +4,21 @@ const jwt = require('jsonwebtoken');
 const secret = require('./../config/config').secret;
 
 const TodoSchema = new mongoose.Schema({
-  parent: String,
-  title : String,
-  check : String,
-  complete_time: String,
-  point : Number
+  userId: Object,
+  title: String,
+  tag: [],
+  todo: {},
+  score: Number
 }, { timestamps: true });
 
 TodoSchema.methods.toTodo = function(){
   return {
-    id: this._id,
-    parent: this.parent,
+    todoId: this._id,
+    userId: this.userId,
     title: this.title,
-    check: this.check,
-    complete_time: this.complete_time,
-    point: this.point
+    tag: this.tag,
+    todo: this.todo,
+    score: this.score
   };
 };
 
